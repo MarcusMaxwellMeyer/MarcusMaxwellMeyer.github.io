@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Details — Marcus Meyer Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:wght@900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #1c1d21;
+            --white: #fafafa;
+            --accent: #00ff88;
+            --secondary: #ff3366;
+            --card-bg: #1e1f24;
+            --border: #3d3f47;
+        }
+
+        /* Project-specific color schemes */
+        html[data-project="01"] {
+            --accent: #00ff88;
+            --accent-light: rgba(0, 255, 136, 0.1);
+        }
+
+        html[data-project="02"] {
+            --accent: #3b82f6;
+            --accent-light: rgba(59, 130, 246, 0.1);
+        }
+
+        html[data-project="03"] {
+            --accent: #ff3366;
+            --accent-light: rgba(255, 51, 102, 0.1);
+        }
+
+        html[data-project="04"] {
+            --accent: #8b5cf6;
+            --accent-light: rgba(139, 92, 246, 0.1);
+        }
+
+        html[data-project="05"] {
+            --accent: #a78bfa;
+            --accent-light: rgba(167, 139, 250, 0.1);
+        }
+
+        html[data-project="06"] {
+            --accent: #fb923c;
+            --accent-light: rgba(251, 146, 60, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Skip to content link for keyboard users */
+        .skip-link {
+            position: fixed;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: var(--black);
+            padding: 0.75rem 1.5rem;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-decoration: none;
+            border-radius: 0 0 8px 8px;
+            z-index: 10000;
+            transition: top 0.2s ease;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .skip-link:focus {
+            top: 0;
+            outline: none;
+        }
+
+        /* Global focus-visible styles */
+        :focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+        }
+
+        /* Remove default focus for mouse users */
+        :focus:not(:focus-visible) {
+            outline: none;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Simple clean background - no distractions */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse 800px 600px at 10% 20%, rgba(0, 255, 136, 0.02) 0%, transparent 60%),
+                radial-gradient(ellipse 600px 800px at 90% 80%, rgba(255, 51, 102, 0.02) 0%, transparent 60%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Back button */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            margin: 2rem 2rem 0 2rem;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .back-button:hover {
+            background: var(--card-bg);
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateX(-5px);
+        }
+
+        .back-button:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+        }
+
+        /* Hero Banner */
+        .hero-banner {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .hero-content {
+            position: relative;
+            background: linear-gradient(135deg, var(--card-bg) 0%, var(--black) 100%);
+            border: 1px solid var(--border);
+            border-radius: 24px 24px 0 0;
+            padding: 4rem 3rem;
+            overflow: hidden;
+        }
+
+        .hero-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+
+        .hero-image {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-header {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 900;
+            color: var(--accent);
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        .hero-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 400;
+            color: var(--white);
+            letter-spacing: 0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+            max-width: 800px;
+        }
+
+        /* Tags Section */
+        .tags-container {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .tags-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .tags-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .tag {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .tag-css {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .tag-css:hover {
+            background: var(--accent-light);
+        }
+
+        .tag-framework {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .tag-framework:hover {
+            background: var(--accent-light);
+        }
+
+        .tag-animation {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .tag-animation:hover {
+            background: var(--accent-light);
+        }
+
+        .tag-performance {
+            color: #10b981;
+            border-color: #10b981;
+        }
+
+        .tag-performance:hover {
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .tag-tool {
+            color: #f59e0b;
+            border-color: #f59e0b;
+        }
+
+        .tag-tool:hover {
+            background: rgba(245, 158, 11, 0.1);
+        }
+
+        .tag-data {
+            color: #8b5cf6;
+            border-color: #8b5cf6;
+        }
+
+        .tag-data:hover {
+            background: rgba(139, 92, 246, 0.1);
+        }
+
+        /* Content Section */
+        .project-details {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .detail-section {
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(30, 31, 36, 0.5) 100%);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        .detail-list {
+            list-style: none;
+        }
+
+        .detail-list li {
+            padding: 0.75rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+        }
+
+        .detail-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .writeup {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(30, 31, 36, 0.5) 100%);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .writeup p {
+            margin-bottom: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        .writeup p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero-header {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-number {
+                font-size: 3rem;
+            }
+
+            .back-button {
+                margin: 1rem;
+            }
+
+            .hero-banner {
+                padding: 0 1rem;
+            }
+
+            .project-details {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Footer */
+        .project-footer {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .footer-back {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <a href="index.html#projects" class="back-button" aria-label="Back to portfolio projects">← Back to Portfolio</a>
+
+    <!-- Hero Banner -->
+    <main id="main-content">
+    <div class="hero-banner">
+        <div class="hero-content">
+            <div class="hero-image">
+                <img src="data:image/svg+xml,%3Csvg width='1200' height='600' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='heroBg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2300ff88;stop-opacity:0.15' /%3E%3Cstop offset='100%25' style='stop-color:%23ff3366;stop-opacity:0.15' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='600' fill='url(%23heroBg)' /%3E%3Ctext x='50%25' y='50%25' font-family='monospace' font-size='48' fill='%23ffffff' text-anchor='middle' dominant-baseline='middle' opacity='0.2'%3EProject Hero Banner%3C/text%3E%3C/svg%3E" alt="Project Hero">
+            </div>
+
+            <div class="hero-header">
+                <div>
+                    <h1 class="hero-title" id="projectTitle">Animation Library</h1>
+                    <p class="hero-description" id="projectDesc">
+                        Developed a lightweight CSS animation library featuring scroll-triggered effects, micro-interactions, and performance-optimized transitions.
+                    </p>
+                </div>
+                <div class="hero-number" id="projectNumber">03</div>
+            </div>
+
+            <div class="tags-container">
+                <span class="tags-label">Technologies & Tools</span>
+                <div class="tags-grid" id="projectTags">
+                    <span class="tag tag-animation">Keyframes</span>
+                    <span class="tag tag-animation">Transforms</span>
+                    <span class="tag tag-performance">Performance</span>
+                    <span class="tag tag-tool">AE</span>
+                    <span class="tag tag-tool">Blender</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Details Content -->
+    <div class="project-details">
+        <div class="content-grid">
+            <div class="detail-section">
+                <h2 class="section-title">Key Features</h2>
+                <ul class="detail-list" id="features">
+                    <li>Scroll-triggered animations</li>
+                    <li>Micro-interactions library</li>
+                    <li>Performance-optimized transitions</li>
+                    <li>CSS custom properties</li>
+                    <li>Cross-browser compatible</li>
+                </ul>
+            </div>
+
+            <div class="detail-section">
+                <h2 class="section-title">Challenges</h2>
+                <ul class="detail-list" id="challenges">
+                    <li>Maintaining 60fps performance</li>
+                    <li>Browser compatibility testing</li>
+                    <li>Accessibility compliance</li>
+                    <li>Animation timing synchronization</li>
+                    <li>Mobile optimization</li>
+                </ul>
+            </div>
+
+            <div class="writeup">
+                <h2 class="section-title">Project Overview</h2>
+                <p>
+                    This project aimed to create a comprehensive CSS animation library that would serve as a foundation for all future design projects. The library needed to be lightweight, performant, and easy to integrate into existing projects without requiring additional JavaScript dependencies.
+                </p>
+                <p>
+                    We started by researching modern animation techniques and browser capabilities, identifying key use cases and performance constraints. The team conducted extensive testing across devices and browsers to ensure consistent behavior and optimal performance.
+                </p>
+                <p>
+                    The final implementation includes a modular system of reusable animation classes, a set of pre-built micro-interactions, and comprehensive documentation for developers. The library has been successfully implemented across 15+ projects and continues to evolve based on real-world usage and feedback.
+                </p>
+                <p>
+                    Key achievements include a 98 Lighthouse performance score, 100% WCAG AA accessibility compliance, and a 40% reduction in animation-related JavaScript code across projects.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="project-footer">
+        <a href="index.html#projects" class="back-button footer-back" aria-label="Back to portfolio projects">← Back to Portfolio</a>
+    </footer>
+    </main>
+
+    <script>
+        // Extract project data from URL or use defaults
+        function initializeProject() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const projectId = urlParams.get('id') || '03';
+
+            // Set the project-specific color scheme
+            document.documentElement.setAttribute('data-project', projectId);
+
+            // Project data mapping
+            const projects = {
+                '01': {
+                    title: 'E-Commerce Platform',
+                    number: '01',
+                    description: 'Built a fully responsive e-commerce interface with CSS Grid, custom animations, and advanced filtering system. Achieved 95+ Lighthouse score.',
+                    tags: [
+                        { text: 'CSS Grid', class: 'tag-css' },
+                        { text: 'Flexbox', class: 'tag-css' },
+                        { text: 'Animations', class: 'tag-animation' },
+                        { text: 'Figma', class: 'tag-tool' },
+                        { text: 'Webflow', class: 'tag-tool' },
+                        { text: 'Shopify', class: 'tag-tool' }
+                    ],
+                    features: [
+                        'Responsive CSS Grid layout',
+                        'Advanced product filtering',
+                        'Shopping cart functionality',
+                        'Payment integration',
+                        'Inventory management'
+                    ],
+                    challenges: [
+                        'Cross-browser compatibility',
+                        'Mobile performance optimization',
+                        'Payment gateway integration',
+                        'Real-time inventory updates',
+                        'Shopping cart persistence'
+                    ]
+                },
+                '02': {
+                    title: 'Design System',
+                    number: '02',
+                    description: 'Created a comprehensive design system with CSS custom properties, modular components, and dark mode support. Used across 15+ projects.',
+                    tags: [
+                        { text: 'CSS Variables', class: 'tag-css' },
+                        { text: 'BEM', class: 'tag-framework' },
+                        { text: 'Sass', class: 'tag-framework' },
+                        { text: 'Figma', class: 'tag-tool' },
+                        { text: 'PS', class: 'tag-tool' }
+                    ],
+                    features: [
+                        'Modular component system',
+                        'Dark mode support',
+                        'Comprehensive documentation',
+                        'Responsive typography',
+                        'Color and spacing tokens'
+                    ],
+                    challenges: [
+                        'Maintaining consistency across teams',
+                        'Component scalability',
+                        'Design token management',
+                        'Version control',
+                        'Adoption across projects'
+                    ]
+                },
+                '03': {
+                    title: 'Animation Library',
+                    number: '03',
+                    description: 'Developed a lightweight CSS animation library featuring scroll-triggered effects, micro-interactions, and performance-optimized transitions.',
+                    tags: [
+                        { text: 'Keyframes', class: 'tag-animation' },
+                        { text: 'Transforms', class: 'tag-animation' },
+                        { text: 'Performance', class: 'tag-performance' },
+                        { text: 'AE', class: 'tag-tool' },
+                        { text: 'Blender', class: 'tag-tool' }
+                    ],
+                    features: [
+                        'Scroll-triggered animations',
+                        'Micro-interactions library',
+                        'Performance-optimized transitions',
+                        'CSS custom properties',
+                        'Cross-browser compatible'
+                    ],
+                    challenges: [
+                        'Maintaining 60fps performance',
+                        'Browser compatibility testing',
+                        'Accessibility compliance',
+                        'Animation timing synchronization',
+                        'Mobile optimization'
+                    ]
+                }
+            };
+
+            const project = projects[projectId] || projects['03'];
+
+            // Update page title
+            document.title = project.title + ' — CSS Portfolio';
+
+            // Update hero section
+            document.getElementById('projectTitle').textContent = project.title;
+            document.getElementById('projectNumber').textContent = project.number;
+            document.getElementById('projectDesc').textContent = project.description;
+
+            // Update tags
+            const tagsContainer = document.getElementById('projectTags');
+            tagsContainer.innerHTML = project.tags.map(tag => 
+                `<span class="tag ${tag.class}">${tag.text}</span>`
+            ).join('');
+
+            // Update features
+            const featuresList = document.getElementById('features');
+            featuresList.innerHTML = project.features.map(feature => 
+                `<li>${feature}</li>`
+            ).join('');
+
+            // Update challenges
+            const challengesList = document.getElementById('challenges');
+            challengesList.innerHTML = project.challenges.map(challenge => 
+                `<li>${challenge}</li>`
+            ).join('');
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', initializeProject);
+    </script>
+</body>
+</html>
