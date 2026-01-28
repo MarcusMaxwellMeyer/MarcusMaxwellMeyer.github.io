@@ -2461,10 +2461,42 @@
             box-shadow: 0 4px 12px rgba(236, 72, 153, 0.2);
         }
 
-        /* Tool highlights - specific software/apps get subtle distinction */
-        .tech-item.tool-highlight {
-            font-style: italic;
-            opacity: 0.85;
+        /* Tool highlights - specific software/apps get hammer icon */
+        .tech-item.tool-highlight::before {
+            content: '🔨 ';
+            font-size: 0.75em;
+        }
+
+        /* Tech item tooltips */
+        .tech-item[data-tooltip] {
+            position: relative;
+            cursor: help;
+        }
+
+        .tech-item[data-tooltip]::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--black);
+            color: var(--white);
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+            z-index: 100;
+            border: 1px solid var(--border);
+            margin-bottom: 8px;
+            pointer-events: none;
+        }
+
+        .tech-item[data-tooltip]:hover::after {
+            opacity: 1;
+            visibility: visible;
         }
 
         /* Projects Grid */
@@ -3756,7 +3788,7 @@
                 <div class="tech-category">
                     <h3 class="tech-category-title">Product Design & Systems</h3>
                     <div class="tech-items">
-                        <span class="tech-item design-tools">Figma</span>
+                        <span class="tech-item design-tools tool-highlight">Figma</span>
                         <span class="tech-item design-tools">Design Systems</span>
                         <span class="tech-item design-tools">Component Libraries</span>
                         <span class="tech-item design-tools">Token-based Design</span>
@@ -3764,7 +3796,7 @@
                         <span class="tech-item design-tools">Color Systems</span>
                         <span class="tech-item design-tools">Visual Hierarchy</span>
                         <span class="tech-item design-tools">Iconography</span>
-                        <span class="tech-item design-tools">Responsive & Platform-Aware UI</span>
+                        <span class="tech-item design-tools" data-tooltip="Responsive & platform-aware UI design">Responsive UI</span>
                     </div>
                 </div>
 
@@ -3777,8 +3809,8 @@
                         <span class="tech-item ux-research">Journey Mapping</span>
                         <span class="tech-item ux-research">Jobs-to-Be-Done</span>
                         <span class="tech-item ux-research">Personas</span>
-                        <span class="tech-item ux-research">Competitive & Market Analysis</span>
-                        <span class="tech-item ux-research">Quantitative Insight (Heatmaps, A/B Testing)</span>
+                        <span class="tech-item ux-research" data-tooltip="Competitive & market analysis">Market Analysis</span>
+                        <span class="tech-item ux-research" data-tooltip="Heatmaps, A/B testing & analytics">Quantitative Insight</span>
                         <span class="tech-item ux-research tool-highlight">Maze</span>
                         <span class="tech-item ux-research tool-highlight">Hotjar</span>
                     </div>
@@ -3788,9 +3820,9 @@
                 <div class="tech-category">
                     <h3 class="tech-category-title">Prototyping & Validation</h3>
                     <div class="tech-items">
-                        <span class="tech-item prototyping">High-Fidelity & Rapid Prototyping</span>
-                        <span class="tech-item prototyping">Interaction Design & Motion-aware UX</span>
-                        <span class="tech-item prototyping">Concept Testing & Iteration</span>
+                        <span class="tech-item prototyping" data-tooltip="High-fidelity & rapid prototyping">Hi-Fi & Rapid Prototyping</span>
+                        <span class="tech-item prototyping" data-tooltip="Interaction design & motion-aware UX">Interaction & Motion UX</span>
+                        <span class="tech-item prototyping">Concept Testing</span>
                         <span class="tech-item prototyping tool-highlight">Figma</span>
                         <span class="tech-item prototyping tool-highlight">ProtoPie</span>
                         <span class="tech-item prototyping tool-highlight">Framer</span>
@@ -3801,10 +3833,10 @@
                 <div class="tech-category">
                     <h3 class="tech-category-title">Systems, Accessibility & Governance</h3>
                     <div class="tech-items">
-                        <span class="tech-item systems-a11y">Design Systems Strategy & Maintenance</span>
-                        <span class="tech-item systems-a11y">Atomic Design Principles</span>
-                        <span class="tech-item systems-a11y">Accessibility Standards (WCAG, ARIA, Semantic HTML)</span>
-                        <span class="tech-item systems-a11y">Component Documentation & Design-to-Dev Alignment</span>
+                        <span class="tech-item systems-a11y" data-tooltip="Design systems strategy & maintenance">Design Systems Strategy</span>
+                        <span class="tech-item systems-a11y">Atomic Design</span>
+                        <span class="tech-item systems-a11y" data-tooltip="WCAG, ARIA & semantic HTML">Accessibility (WCAG)</span>
+                        <span class="tech-item systems-a11y" data-tooltip="Component documentation & design-to-dev alignment">Design-Dev Alignment</span>
                     </div>
                 </div>
 
@@ -3826,11 +3858,11 @@
                 <div class="tech-category">
                     <h3 class="tech-category-title">CMS & Platforms</h3>
                     <div class="tech-items">
-                        <span class="tech-item frontend-dev">Webflow</span>
-                        <span class="tech-item frontend-dev">WordPress</span>
-                        <span class="tech-item frontend-dev">Shopify</span>
-                        <span class="tech-item frontend-dev">Contentful</span>
-                        <span class="tech-item frontend-dev">Wix</span>
+                        <span class="tech-item frontend-dev tool-highlight">Webflow</span>
+                        <span class="tech-item frontend-dev tool-highlight">WordPress</span>
+                        <span class="tech-item frontend-dev tool-highlight">Shopify</span>
+                        <span class="tech-item frontend-dev tool-highlight">Contentful</span>
+                        <span class="tech-item frontend-dev tool-highlight">Wix</span>
                     </div>
                 </div>
 
@@ -3838,16 +3870,16 @@
                 <div class="tech-category">
                     <h3 class="tech-category-title">Visual Craft & Brand</h3>
                     <div class="tech-items">
-                        <span class="tech-item graphic-design">Advanced Visual Design & Brand Systems</span>
+                        <span class="tech-item graphic-design" data-tooltip="Visual design principles & scalable brand systems">Visual Design & Brand Systems</span>
                         <span class="tech-item graphic-design">Art Direction</span>
                         <span class="tech-item graphic-design">Image Direction</span>
-                        <span class="tech-item graphic-design">Motion-supported Interfaces & Micro-Interactions</span>
-                        <span class="tech-item motion-video tool-highlight">Photoshop</span>
-                        <span class="tech-item motion-video tool-highlight">Illustrator</span>
-                        <span class="tech-item motion-video tool-highlight">InDesign</span>
-                        <span class="tech-item motion-video tool-highlight">After Effects</span>
-                        <span class="tech-item motion-video tool-highlight">Premiere Pro</span>
-                        <span class="tech-item motion-video tool-highlight">Blender</span>
+                        <span class="tech-item graphic-design" data-tooltip="Motion-supported interfaces & micro-interactions">Motion & Micro-Interactions</span>
+                        <span class="tech-item graphic-design tool-highlight">Photoshop</span>
+                        <span class="tech-item graphic-design tool-highlight">Illustrator</span>
+                        <span class="tech-item graphic-design tool-highlight">InDesign</span>
+                        <span class="tech-item graphic-design tool-highlight">After Effects</span>
+                        <span class="tech-item graphic-design tool-highlight">Premiere Pro</span>
+                        <span class="tech-item graphic-design tool-highlight">Blender</span>
                     </div>
                 </div>
 
