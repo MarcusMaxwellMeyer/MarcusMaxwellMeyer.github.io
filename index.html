@@ -909,8 +909,9 @@
             display: grid;
             grid-template-columns: repeat(56, 200px);
             gap: 1.5rem;
+            width: max-content;
             animation: scrollBrands 60s linear infinite;
-            overflow: hidden;
+            overflow: visible;
         }
 
         @keyframes scrollBrands {
@@ -1002,7 +1003,7 @@
         .brand-card:nth-child(25):hover .brand-logo-img,
         .brand-card:nth-child(33):hover .brand-logo-img,
         .brand-card:nth-child(41):hover .brand-logo-img {
-            filter: grayscale(0%) brightness(1.2) drop-shadow(0 0 6px rgba(0, 255, 136, 0.6));
+            --brand-shadow: drop-shadow(0 0 6px rgba(0, 255, 136, 0.6));
         }
 
         .brand-card:nth-child(2):hover .brand-logo-img,
@@ -1011,7 +1012,7 @@
         .brand-card:nth-child(26):hover .brand-logo-img,
         .brand-card:nth-child(34):hover .brand-logo-img,
         .brand-card:nth-child(42):hover .brand-logo-img {
-            filter: grayscale(0%) brightness(1.2) drop-shadow(0 0 6px rgba(59, 130, 246, 0.6));
+            --brand-shadow: drop-shadow(0 0 6px rgba(59, 130, 246, 0.6));
         }
 
         .brand-card:nth-child(3):hover .brand-logo-img,
@@ -1020,7 +1021,7 @@
         .brand-card:nth-child(27):hover .brand-logo-img,
         .brand-card:nth-child(35):hover .brand-logo-img,
         .brand-card:nth-child(43):hover .brand-logo-img {
-            filter: grayscale(0%) brightness(1.2) drop-shadow(0 0 6px rgba(255, 51, 102, 0.6));
+            --brand-shadow: drop-shadow(0 0 6px rgba(255, 51, 102, 0.6));
         }
 
         .brand-card:nth-child(4):hover .brand-logo-img,
@@ -1029,7 +1030,7 @@
         .brand-card:nth-child(28):hover .brand-logo-img,
         .brand-card:nth-child(36):hover .brand-logo-img,
         .brand-card:nth-child(44):hover .brand-logo-img {
-            filter: grayscale(0%) brightness(1.2) drop-shadow(0 0 6px rgba(139, 92, 246, 0.6));
+            --brand-shadow: drop-shadow(0 0 6px rgba(139, 92, 246, 0.6));
         }
 
         .brand-card:nth-child(5):hover .brand-logo-img,
@@ -1038,7 +1039,7 @@
         .brand-card:nth-child(29):hover .brand-logo-img,
         .brand-card:nth-child(37):hover .brand-logo-img,
         .brand-card:nth-child(45):hover .brand-logo-img {
-            filter: grayscale(0%) brightness(1.2) drop-shadow(0 0 6px rgba(251, 146, 60, 0.6));
+            --brand-shadow: drop-shadow(0 0 6px rgba(251, 146, 60, 0.6));
         }
 
         .brand-card:nth-child(6):hover .brand-logo-img,
@@ -1047,7 +1048,7 @@
         .brand-card:nth-child(30):hover .brand-logo-img,
         .brand-card:nth-child(38):hover .brand-logo-img,
         .brand-card:nth-child(46):hover .brand-logo-img {
-            filter: grayscale(0%) brightness(1.2) drop-shadow(0 0 6px rgba(236, 72, 153, 0.6));
+            --brand-shadow: drop-shadow(0 0 6px rgba(236, 72, 153, 0.6));
         }
 
         .brand-card:nth-child(7):hover .brand-logo-img,
@@ -1056,7 +1057,7 @@
         .brand-card:nth-child(31):hover .brand-logo-img,
         .brand-card:nth-child(39):hover .brand-logo-img,
         .brand-card:nth-child(47):hover .brand-logo-img {
-            filter: grayscale(0%) brightness(1.2) drop-shadow(0 0 6px rgba(6, 182, 212, 0.6));
+            --brand-shadow: drop-shadow(0 0 6px rgba(6, 182, 212, 0.6));
         }
 
         .brand-card:nth-child(8):hover .brand-logo-img,
@@ -1065,7 +1066,7 @@
         .brand-card:nth-child(32):hover .brand-logo-img,
         .brand-card:nth-child(40):hover .brand-logo-img,
         .brand-card:nth-child(48):hover .brand-logo-img {
-            filter: grayscale(0%) brightness(1.2) drop-shadow(0 0 6px rgba(251, 191, 36, 0.6));
+            --brand-shadow: drop-shadow(0 0 6px rgba(251, 191, 36, 0.6));
         }
 
         /* Color variations on hover */
@@ -1196,12 +1197,14 @@
             width: 100%;
             height: 160px;
             object-fit: contain;
-            transition: all 0.3s ease;
-            filter: grayscale(100%) brightness(0.7);
+            --brand-shadow: none;
+            transition: filter 0.3s ease, opacity 0.3s ease;
+            filter: brightness(0) invert(1) var(--brand-shadow);
+            opacity: 0.7;
         }
 
         .brand-card:hover .brand-logo-img {
-            filter: grayscale(100%) brightness(0.9);
+            opacity: 1;
         }
 
         /* Interactive Demos Section */
