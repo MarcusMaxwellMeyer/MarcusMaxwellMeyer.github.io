@@ -97,16 +97,19 @@
 
         /* Sticky Sidebar Profile */
         .sidebar-profile {
+            position: -webkit-sticky;
             position: sticky;
-            top: 3rem;
+            top: 2rem;
             width: 350px;
             flex-shrink: 0;
             height: fit-content;
+            max-height: calc(100vh - 4rem);
+            overflow-y: auto;
             background: linear-gradient(135deg, rgba(30, 31, 36, 0.8) 0%, rgba(28, 29, 33, 0.95) 100%);
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 2.5rem;
-            flex-shrink: 0;
+            align-self: flex-start;
         }
 
         .profile-image-container {
