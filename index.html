@@ -2604,15 +2604,15 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease, filter 0.5s ease;
-            filter: blur(3px) brightness(0.7);
+            filter: brightness(0.85);
         }
 
         .project-card:hover .project-image img {
             transform: scale(1.05);
-            filter: blur(2px) brightness(0.8);
+            filter: brightness(1);
         }
 
-        /* Gradient overlay on image - stronger fade to dark */
+        /* Gradient overlay on image - subtle fade to dark at bottom */
         .project-image::after {
             content: '';
             position: absolute;
@@ -2621,11 +2621,11 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(180deg, 
-                rgba(10, 10, 10, 0.2) 0%,
-                rgba(10, 10, 10, 0.5) 30%,
-                rgba(10, 10, 10, 0.8) 60%,
-                rgba(10, 10, 10, 0.95) 85%,
-                rgba(10, 10, 10, 1) 100%);
+                rgba(10, 10, 10, 0) 0%,
+                rgba(10, 10, 10, 0.1) 40%,
+                rgba(10, 10, 10, 0.4) 70%,
+                rgba(10, 10, 10, 0.7) 90%,
+                rgba(10, 10, 10, 0.9) 100%);
             pointer-events: none;
             z-index: 1;
         }
