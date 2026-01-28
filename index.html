@@ -3002,6 +3002,8 @@
                 max-width: 600px;
                 margin: 0 auto 3rem auto;
                 padding: 2rem;
+                max-height: none;
+                overflow: visible;
             }
 
             .container {
@@ -3218,6 +3220,31 @@
         @media (max-width: 480px) {
             .container {
                 padding: 0.75rem;
+            }
+
+            .sidebar-profile {
+                padding: 1.5rem;
+                max-height: none;
+                overflow: visible;
+            }
+
+            .profile-image-container {
+                max-width: 170px;
+            }
+
+            .profile-stats {
+                gap: 0.75rem;
+                padding: 1rem 0;
+            }
+
+            .profile-hobbies {
+                margin-top: 1rem;
+                padding-top: 1rem;
+            }
+
+            /* Keep the profile card compact on small screens */
+            .hobbies-list li:nth-child(n+7) {
+                display: none;
             }
 
             .hero {
