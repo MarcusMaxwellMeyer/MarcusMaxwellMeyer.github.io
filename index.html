@@ -100,6 +100,7 @@
             position: sticky;
             top: 3rem;
             width: 350px;
+            flex-shrink: 0;
             height: fit-content;
             background: linear-gradient(135deg, rgba(30, 31, 36, 0.8) 0%, rgba(28, 29, 33, 0.95) 100%);
             border: 1px solid var(--border);
@@ -620,6 +621,7 @@
             max-width: 900px;
             padding-bottom: 4rem;
             overflow-x: hidden;
+            margin: 0 auto;
         }
 
         /* Hero Section */
@@ -2997,11 +2999,14 @@
                 display: block;
                 padding: 2rem 1.5rem;
                 overflow-x: hidden;
+                text-align: center;
             }
             
             .main-content {
-                max-width: 100%;
+                max-width: 900px;
+                margin: 0 auto;
                 overflow-x: hidden;
+                text-align: left;
             }
 
             .section {
