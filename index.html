@@ -2468,6 +2468,50 @@
             gap: 1.5rem;
         }
 
+        /* Collapsed state - hide cards beyond first 2 */
+        .projects-grid.collapsed .project-card:nth-child(n+3) {
+            display: none;
+        }
+
+        /* Show More / Show Less Button */
+        .projects-toggle-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 2rem auto 0;
+            padding: 0.875rem 2rem;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: rgba(255, 255, 255, 0.8);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .projects-toggle-btn:hover {
+            border-color: var(--accent);
+            background: rgba(0, 255, 136, 0.08);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .projects-toggle-btn:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+        }
+
+        .projects-toggle-btn .toggle-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .projects-toggle-btn.expanded .toggle-icon {
+            transform: rotate(180deg);
+        }
+
         .project-card {
             background: var(--card-bg);
             border: 1px solid var(--border);
@@ -3424,7 +3468,7 @@
                 <button class="filter-btn" data-filter="creative">Creative</button>
             </div>
             
-            <div class="projects-grid">
+            <div class="projects-grid collapsed" id="projectsGrid">
                 <article class="project-card" data-category="ecommerce">
                     <div class="project-image">
                         <img src="data:image/svg+xml,%3Csvg width='600' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='grad1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2300ff88;stop-opacity:0.2' /%3E%3Cstop offset='100%25' style='stop-color:%23ff3366;stop-opacity:0.2' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='600' height='400' fill='url(%23grad1)' /%3E%3Ctext x='50%25' y='50%25' font-family='monospace' font-size='24' fill='%23ffffff' text-anchor='middle' dominant-baseline='middle' opacity='0.3'%3ESeawag%3C/text%3E%3C/svg%3E" alt="Seawag E-Commerce">
@@ -3691,6 +3735,14 @@
                         <a href="project.html?id=11" class="project-link">View Project</a>
                     </div>
                 </article>
+            </div>
+            
+            <button class="projects-toggle-btn" id="projectsToggle" aria-expanded="false">
+                <span class="toggle-text">Show More Projects</span>
+                <svg class="toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </button>
         </section>
 
         <!-- Tech Stack Section -->
@@ -4450,6 +4502,32 @@
                     });
                 });
             });
+
+            // Projects Show More/Less Toggle
+            const projectsGrid = document.getElementById('projectsGrid');
+            const projectsToggle = document.getElementById('projectsToggle');
+            const toggleText = projectsToggle?.querySelector('.toggle-text');
+
+            if (projectsToggle && projectsGrid) {
+                projectsToggle.addEventListener('click', function() {
+                    const isCollapsed = projectsGrid.classList.contains('collapsed');
+                    
+                    if (isCollapsed) {
+                        projectsGrid.classList.remove('collapsed');
+                        projectsToggle.classList.add('expanded');
+                        projectsToggle.setAttribute('aria-expanded', 'true');
+                        toggleText.textContent = 'Show Less';
+                    } else {
+                        projectsGrid.classList.add('collapsed');
+                        projectsToggle.classList.remove('expanded');
+                        projectsToggle.setAttribute('aria-expanded', 'false');
+                        toggleText.textContent = 'Show More Projects';
+                        
+                        // Scroll back to projects section smoothly
+                        document.getElementById('projects').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            }
 
             // MTG Symbol Interactivity
             const mtgSymbols = document.querySelectorAll('.mtg-symbol');
